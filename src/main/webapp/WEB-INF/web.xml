@@ -1,0 +1,40 @@
+
+<web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+
+	<servlet-mapping>
+		<servlet-name>javax.ws.rs.core.Application</servlet-name>
+		<url-pattern>/rest/*</url-pattern>
+	</servlet-mapping>
+
+
+	<display-name>JBoss Active Directory</display-name>
+	<description>JBoss Active Directory Integration</description>
+	<!-- Security constraint for protected methods -->
+	<security-constraint>
+		<display-name>Restricted to ProtectedRole </display-name>
+		<web-resource-collection>
+			<web-resource-name>Protected</web-resource-name>
+			<url-pattern>/rest/protected-post</url-pattern>
+			<url-pattern>/rest/protected-get</url-pattern>
+			<url-pattern>/rest/protected-delete</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>ProtectedRole</role-name>
+		</auth-constraint>
+	</security-constraint>
+	
+	<!-- Define the Login Configuration for this Application -->
+	<login-config>
+		<auth-method>SPNEGO</auth-method>
+		<realm-name>SPNEGO</realm-name>
+	</login-config>
+	<!-- Security roles referenced by this Application -->
+	<security-role>
+		<description>Role required to access protected methods</description>
+		<role-name>ProtectedRole</role-name>
+	</security-role>
+
+
+</web-app>
